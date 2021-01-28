@@ -7,15 +7,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.eni.ecole.projetencheres.bll.SuppressionProfilManager;
+import fr.eni.ecole.projetencheres.bll.bo.Utilisateur;
+
 /**
  * Servlet implementation class accueil
  */
-@WebServlet("/accueil")
-public class Accueil extends HttpServlet {
+@WebServlet("/suppressionCompte")
+public class SuppressionCompte extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		SuppressionProfilManager suppressionProfilManager = new SuppressionProfilManager();
+		suppressionProfilManager.supprimerProfil((Utilisateur) request.getSession().getAttribute("utilisateurConnecte"));
+		request.getSession().invalidate();
 		request.getServletContext().getRequestDispatcher("/accueil.jsp").forward(request, response);
 	}
 

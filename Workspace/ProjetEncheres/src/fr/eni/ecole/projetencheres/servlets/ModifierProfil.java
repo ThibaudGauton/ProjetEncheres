@@ -13,30 +13,17 @@ import fr.eni.ecole.projetencheres.bll.CreerOuModifierProfilManager;
 import fr.eni.ecole.projetencheres.bll.bo.Utilisateur;
 
 /**
- * Servlet implementation class CreationCompte
+ * Servlet implementation class accueil
  */
-@WebServlet("/creationcompte")
-public class CreationCompte extends HttpServlet {
+@WebServlet("/modifierProfil")
+public class ModifierProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CreationCompte() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getServletContext().getRequestDispatcher("/creationcompte.jsp").forward(request, response);
+		request.getServletContext().getRequestDispatcher("/modifierProfil.jsp").forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String pseudo = request.getParameter("pseudo");
 		String nom = request.getParameter("nom");
@@ -46,9 +33,17 @@ public class CreationCompte extends HttpServlet {
 		String rue = request.getParameter("rue");
 		String codepostal = request.getParameter("codepostal");
 		String ville = request.getParameter("ville");
-		String motdepasse = request.getParameter("motdepasse");
+		String motDePasseActuel = request.getParameter("motDePasseActuel");
+		String nouveauMotDePasse = request.getParameter("motdepasse");
 		String confirmationmdp = request.getParameter("confirmationmdp");
-		Utilisateur utilisateur = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codepostal, ville, motdepasse);
+		if ("".equals(nouveauMotDePasse) && "".equals(confirmationmdp)) {
+			nouveauMotDePasse=motDePasseActuel;
+			confirmationmdp=motDePasseActuel;
+		}
+		Utilisateur utilisateurModifie = new Utilisateur(pseudo, nom, prenom, email, telephone, rue, codepostal, ville, nouveauMotDePasse);
+		Utilisateur utilisateurCourant = (Utilisateur) request.getSession().getAttribute("utilisateurConnecte");
+		
+		
 		/*
 		System.out.println(pseudo);
 		System.out.println(nom);
@@ -62,21 +57,31 @@ public class CreationCompte extends HttpServlet {
 		System.out.println(confirmationmdp);
 		*/
 		
+		CreerOuModifierProfilManager modifierProfilManager = new CreerOuModifierProfilManager();
+		Map<String, String> verif = modifierProfilManager.verif(utilisateurCourant, utilisateurModifie, confirmationmdp, motDePasseActuel);
 		
-		CreerOuModifierProfilManager creationCompteManager = new CreerOuModifierProfilManager();
-		Map<String, String> verif = creationCompteManager.verif(utilisateur, confirmationmdp);
+		
 		
 		if(verif.isEmpty()) {
 			//enregistrer en bdd
-			creationCompteManager.enregistrerUtilisateur(utilisateur);
-			request.getSession().setAttribute("utilisateurConnecte", utilisateur);
+			modifierProfilManager.modifierUtilisateur(utilisateurCourant, utilisateurModifie);
+			request.getSession().setAttribute("utilisateurConnecte", utilisateurModifie);
 			request.getServletContext().getRequestDispatcher("/accueil.jsp").forward(request, response);
 		}else {
 			//affichage des erreurs
 			request.setAttribute("mapErreur", verif);
-			request.getServletContext().getRequestDispatcher("/creationcompte.jsp").forward(request, response);
+			request.getServletContext().getRequestDispatcher("/modifierProfil.jsp").forward(request, response);
 		}
 		
+		
+		//ajouter les infos du formulaire
+		//${}
+		//ajouter un attribut dans la session
+		//request.getSession().setAttribute("message", "je suis un message de la servlet");
+		//supprimer la session
+		//request.getSession().invalidate();
+		//supprimer un attribut dans la session
+		//request.getSession().removeAttribute("nomattribut");
 	}
 
 }

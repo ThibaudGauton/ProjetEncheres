@@ -10,7 +10,7 @@
 <body>
 	<p><a href="accueil">ENI-Encheres</a></p>
 	<h2>Mon profil</h2>
-	<p>${utilisateurConnecte}</p>
+	<p>${mapErreur}</p>
 	<form action="creationcompte" method="POST">
 		<label for="pseudo">Pseudo : </label>
 		<input id="pseudo" type="text" name="pseudo" required/>

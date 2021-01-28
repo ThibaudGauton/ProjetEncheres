@@ -12,23 +12,24 @@
 	<p>${utilisateurConnecte}</p>
 	<p>${erreurConnexion}</p>
 	<c:choose>
-				<c:when test="${utilisateurConnecte != null}">
-					<p> Vous etes déjà connecté ! </p>
-				</c:when>
-				<c:otherwise>
-					<form action="connexion" method="POST">
-						<label for="identifiant">Identifiant : </label>
-						<input id="identifiant" type="text" name="identifiant" required/>
-						<br>
-						<label for="motdepasse">Mot de passe : </label>
-						<input id="motdepasse" type="password" name="motdepasse" required/>
-						<br>
-						<input type="submit" name="btConnexion" value="Connexion">
-						<input type="checkbox" value="Se souvenir de moi">
-						<!-- <a href="#">Mot de passe oublié</a>  -->
-					</form>
-				</c:otherwise>
-			</c:choose>
+		<c:when test="${utilisateurConnecte != null}">
+			<p> Vous etes déjà connecté ! </p>
+		</c:when>
+		<c:otherwise>
+			<form action="connexion" method="POST">
+				<label for="identifiant">Identifiant : </label>
+				<input id="identifiant" type="text" name="identifiant" required/>
+				<br>
+				<label for="motdepasse">Mot de passe : </label>
+				<input id="motdepasse" type="password" name="motdepasse" required/>
+				<br>
+				<input type="submit" name="btConnexion" value="Connexion">
+				<input type="checkbox" value="Se souvenir de moi">
+				<!-- <a href="#">Mot de passe oublié</a>  -->
+			</form>
+      			<input type="submit" name="btValider" value="Rechercher">
+		</c:otherwise>
+	</c:choose>
 	
 	<button onclick="window.location.href='http://localhost:8080/ProjetEncheres/creationcompte'">Créer un compte</button>
 </body>
