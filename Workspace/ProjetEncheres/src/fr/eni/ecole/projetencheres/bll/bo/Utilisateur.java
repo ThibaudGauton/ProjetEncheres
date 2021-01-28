@@ -7,7 +7,7 @@ public class Utilisateur {
 	
 	private int noUtilisateur;
 	private int credit;
-	private int administrateur;
+	private boolean administrateur;
 
 	public Utilisateur(String pseudo, String nom, String prenom, String email, String telephone, String rue,
 			String codepostal, String ville, String motdepasse) {
@@ -21,7 +21,20 @@ public class Utilisateur {
 		this.ville = ville;
 		this.motDePasse = motdepasse;
 		this.credit = 0;
-		this.administrateur = 0;
+		this.administrateur = false;
+	}
+
+	public Utilisateur() {
+	}
+
+	
+	
+	public int getNoUtilisateur() {
+		return noUtilisateur;
+	}
+
+	public void setNoUtilisateur(int noUtilisateur) {
+		this.noUtilisateur = noUtilisateur;
 	}
 
 	public String getPseudo() {
@@ -106,11 +119,11 @@ public class Utilisateur {
 		this.credit = credit;
 	}
 
-	public int getAdministrateur() {
+	public boolean getAdministrateur() {
 		return administrateur;
 	}
 
-	public void setAdministrateur(int administrateur) {
+	public void setAdministrateur(boolean administrateur) {
 		this.administrateur = administrateur;
 	}
 

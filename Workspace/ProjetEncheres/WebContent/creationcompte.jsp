@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+   <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Creation compte</title>
+<title>Creation compte ENI-Enchères</title>
 </head>
 <body>
-	<h1>ENI-Enchères</h1>
+	<p><a href="accueil">ENI-Encheres</a></p>
 	<h2>Mon profil</h2>
 	<p>${utilisateurConnecte}</p>
 	<form action="creationcompte" method="POST">

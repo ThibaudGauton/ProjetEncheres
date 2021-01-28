@@ -49,6 +49,7 @@ public class CreationCompte extends HttpServlet {
 		String motdepasse = request.getParameter("motdepasse");
 		String confirmationmdp = request.getParameter("confirmationmdp");
 		
+		/*
 		System.out.println(pseudo);
 		System.out.println(nom);
 		System.out.println(prenom);
@@ -59,7 +60,7 @@ public class CreationCompte extends HttpServlet {
 		System.out.println(ville);
 		System.out.println(motdepasse);
 		System.out.println(confirmationmdp);
-		
+		*/
 		
 		
 		CreationCompteManager creationCompteManager = new CreationCompteManager();

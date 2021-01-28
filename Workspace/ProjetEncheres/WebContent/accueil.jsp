@@ -1,16 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+   <%@ taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Accueil</title>
+<title>Accueil ENI-Encheres</title>
 </head>
 <body>
-	<a href="accueil">ENI-Encheres</a>
+	<p><a href="accueil">ENI-Encheres</a></p>
+	
 	<nav>
 		<ul>
-			<li><a href="connexion">S'inscrire - Se connecter</a></li>
+			<c:choose>
+				<c:when test="${utilisateurConnecte != null}">
+					<li><a href="encheres">Enchères</a></li>
+					<li><a href="vendrearticle">Vendre un article</a></li>
+					<li><a href="profil">Mon profil</a></li>
+					<li><a href="deconnexion">Déconnexion</a></li>
+				</c:when>
+				<c:otherwise>
+					<li><a href="connexion">S'inscrire - Se connecter</a></li>
+				</c:otherwise>
+			</c:choose>
 		</ul>
 	</nav>
 	<p>${utilisateurConnecte}</p>
